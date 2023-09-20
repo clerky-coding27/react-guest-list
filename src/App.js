@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 
 export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('xyz');
+  const [lastNameInput, setLastNameInput] = useState('xyz');
+  const [guests, setGuests] = useState([]);
+
+  const allGuests = [];
 
   return (
     <div className="App">
@@ -29,13 +33,18 @@ export default function App() {
               <label htmlFor="Last name">Last Name:</label>
               <input
                 id="Last name"
+                onChange={(event) => setLastNameInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
-                    const newGuest = {
+                    allGuests.push({
                       firstName: firstNameInput,
+                      lastName: lastNameInput,
                       state: 'not attending',
-                    };
-                    console.log(newGuest);
+                    });
+                    setGuests([...guests, ...allGuests]);
+                    console.log(guests);
+                    // setFirstNameInput('_');
+                    // setLastNameInput('');
                   }
                 }}
               />
