@@ -9,7 +9,19 @@ export default function App() {
   const baseUrl = 'http://localhost:4000';
 
   useEffect(() => {
-    async function createGuest() {
+    async function getAllGuests() {
+      const response = await fetch(`${baseUrl}/guests`);
+      const allGuests = await response.json();
+      console.log(`AllGuestsServer:`);
+      console.log(allGuests);
+    }
+    getAllGuests().catch((error) => {
+      console.log(error);
+    });
+  }, [guests]);
+
+  useEffect(() => {
+    async function createGuests() {
       const response = await fetch(`${baseUrl}/guests`, {
         method: 'POST',
         headers: {
@@ -21,12 +33,24 @@ export default function App() {
         }),
       });
       const createdGuest = await response.json();
+      console.log(`CreatedGuestServer:`);
       console.log(createdGuest);
     }
-    createGuest().catch((error) => {
+    createGuests().catch((error) => {
       console.log(error);
     });
   }, [guests]);
+
+  useEffect(() => {
+    async function getOneGuests() {
+      const response = await fetch(`${baseUrl}/guests/:6`);
+      const guest = await response.json();
+      console.log(guest);
+    }
+    getOneGuests().catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -69,7 +93,9 @@ export default function App() {
                       },
                     ];
                     setGuests(newGuest);
+                    console.log(`AllGuestsArray:`);
                     console.log(newGuest);
+
                     setFirstNameInput('');
                     setLastNameInput('');
                   }
