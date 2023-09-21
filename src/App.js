@@ -125,7 +125,7 @@ export default function App() {
                 >
                   <p>{g.firstName}</p>
                   <p>{g.lastName}</p>
-                  <p>StatusVariable - default not attending</p>
+                  <p>{g.attending ? 'Attending' : 'Not attending'}</p>
                   <button>Remove</button>
                   <input
                     type="checkbox"
