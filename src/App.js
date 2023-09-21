@@ -22,26 +22,22 @@ export default function App() {
     });
   }, [guests]);
 
-  useEffect(() => {
-    async function createGuests() {
-      const response = await fetch(`${baseUrl}/guests`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: guests[guests.length - 1].firstName,
-          lastName: guests[guests.length - 1].lastName,
-        }),
-      });
-      const createdGuest = await response.json();
-      console.log(`CreatedGuestServer:`);
-      console.log(createdGuest);
-    }
-    createGuests().catch((error) => {
-      console.log(error);
+  async function createGuests(newGuestList) {
+    const response = await fetch(`${baseUrl}/guests`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: newGuestList[newGuestList.length - 1].firstName,
+        lastName: newGuestList[newGuestList.length - 1].lastName,
+      }),
     });
-  }, []);
+    const createdGuest = await response.json();
+    setGuests([...allGuestsServer]);
+    console.log(`CreatedGuestServer:`);
+    console.log(createdGuest);
+  }
 
   useEffect(() => {
     async function getOneGuest() {
@@ -64,10 +60,6 @@ export default function App() {
     console.log(deletedGuest);
     // console.log(allGuestsServer););
   }
-
-  useEffect(() => {
-    console.log('Guestlist was updated');
-  }, [allGuestsServer]);
 
   return (
     <div className="App">
@@ -114,7 +106,11 @@ export default function App() {
                         state: 'not attending',
                       },
                     ];
+
                     setGuests(newGuestList);
+                    createGuests(newGuestList).catch((error) => {
+                      console.log(error);
+                    });
                     // console.log(`AllGuestsArray:`);
                     // console.log(newGuestList);
 
