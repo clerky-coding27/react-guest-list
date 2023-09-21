@@ -5,6 +5,7 @@ export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
+  const [allGuestsServer, setAllGuestsServer] = useState([]);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -12,6 +13,7 @@ export default function App() {
     async function getAllGuests() {
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
+      setAllGuestsServer(allGuests);
       console.log(`AllGuestsServer:`);
       console.log(allGuests);
     }
@@ -42,12 +44,12 @@ export default function App() {
   }, [guests]);
 
   useEffect(() => {
-    async function getOneGuests() {
+    async function getOneGuest() {
       const response = await fetch(`${baseUrl}/guests/:6`);
       const guest = await response.json();
       console.log(guest);
     }
-    getOneGuests().catch((error) => {
+    getOneGuest().catch((error) => {
       console.log(error);
     });
   }, []);
@@ -84,7 +86,12 @@ export default function App() {
                 onChange={(event) => setLastNameInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
-                    const newGuest = [
+                    const newGuest = {
+                      firstName: firstNameInput,
+                      lastName: lastNameInput,
+                      state: 'not attending',
+                    };
+                    const newGuestList = [
                       ...guests,
                       {
                         firstName: firstNameInput,
@@ -92,9 +99,9 @@ export default function App() {
                         state: 'not attending',
                       },
                     ];
-                    setGuests(newGuest);
+                    setGuests(newGuestList);
                     console.log(`AllGuestsArray:`);
-                    console.log(newGuest);
+                    console.log(newGuestList);
 
                     setFirstNameInput('');
                     setLastNameInput('');
@@ -107,6 +114,27 @@ export default function App() {
         <hr />
         <div className="GuestList-Section">
           <div className="GuestList">
+            <h2>Manage Guestlist:</h2>
+
+            {allGuestsServer.map((g) => {
+              return (
+                <div
+                  className="ExampleGuest"
+                  key={`uniqueID-${g.firstName}`}
+                  data-test-id="guest"
+                >
+                  <p>{g.firstName}</p>
+                  <p>{g.lastName}</p>
+                  <p>StatusVariable - default not attending</p>
+                  <button>Remove</button>
+                  <input
+                    type="checkbox"
+                    aria-label="<first name> <last name> <attending status>"
+                  />
+                </div>
+              );
+            })}
+
             <div className="ExampleGuest" key="uniqueID" data-test-id="guest">
               <p>FirstNameVariable</p>
               <p>LastNameVariable</p>
