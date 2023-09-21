@@ -1,12 +1,32 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function App() {
-  const [firstNameInput, setFirstNameInput] = useState('xyz');
-  const [lastNameInput, setLastNameInput] = useState('xyz');
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
 
-  const allGuests = [];
+  const baseUrl = 'http://localhost:4000';
+
+  useEffect(() => {
+    async function createGuest() {
+      const response = await fetch(`${baseUrl}/guests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: guests[guests.length - 1].firstName,
+          lastName: guests[guests.length - 1].lastName,
+        }),
+      });
+      const createdGuest = await response.json();
+      console.log(createdGuest);
+    }
+    createGuest().catch((error) => {
+      console.log(error);
+    });
+  }, [guests]);
 
   return (
     <div className="App">
@@ -26,25 +46,32 @@ export default function App() {
               <label htmlFor="First name">First Name:</label>
               <input
                 id="First name"
-                onChange={(event) => setFirstNameInput(event.target.value)}
+                value={firstNameInput}
+                onChange={(event) =>
+                  setFirstNameInput(event.currentTarget.value)
+                }
               />
             </div>
             <div className="LastName">
               <label htmlFor="Last name">Last Name:</label>
               <input
                 id="Last name"
+                value={lastNameInput}
                 onChange={(event) => setLastNameInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
-                    allGuests.push({
-                      firstName: firstNameInput,
-                      lastName: lastNameInput,
-                      state: 'not attending',
-                    });
-                    setGuests([...guests, ...allGuests]);
-                    console.log(guests);
-                    // setFirstNameInput('_');
-                    // setLastNameInput('');
+                    const newGuest = [
+                      ...guests,
+                      {
+                        firstName: firstNameInput,
+                        lastName: lastNameInput,
+                        state: 'not attending',
+                      },
+                    ];
+                    setGuests(newGuest);
+                    console.log(newGuest);
+                    setFirstNameInput('');
+                    setLastNameInput('');
                   }
                 }}
               />
