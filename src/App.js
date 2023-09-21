@@ -54,6 +54,16 @@ export default function App() {
     });
   }, []);
 
+  async function handleRemove(g) {
+    const response = await fetch(`${baseUrl}/guests/${g.id}`, {
+      method: 'DELETE',
+    });
+    const deletedGuest = await response.json();
+    console.log(deletedGuest);
+    // console.log(allGuestsServer);
+    setAllGuestsServer([...allGuestsServer]);
+  }
+
   return (
     <div className="App">
       <header className="header">
@@ -100,8 +110,8 @@ export default function App() {
                       },
                     ];
                     setGuests(newGuestList);
-                    console.log(`AllGuestsArray:`);
-                    console.log(newGuestList);
+                    // console.log(`AllGuestsArray:`);
+                    // console.log(newGuestList);
 
                     setFirstNameInput('');
                     setLastNameInput('');
@@ -120,13 +130,21 @@ export default function App() {
               return (
                 <div
                   className="ExampleGuest"
-                  key={`uniqueID-${g.firstName}`}
+                  key={`uniqueID-${g.firstName}-${g.id}`}
                   data-test-id="guest"
                 >
                   <p>{g.firstName}</p>
                   <p>{g.lastName}</p>
                   <p>{g.attending ? 'Attending' : 'Not attending'}</p>
-                  <button>Remove</button>
+                  <button
+                    onClick={() => {
+                      handleRemove(g).catch((error) => {
+                        console.log(error);
+                      });
+                    }}
+                  >
+                    Remove
+                  </button>
                   <input
                     type="checkbox"
                     aria-label="<first name> <last name> <attending status>"
