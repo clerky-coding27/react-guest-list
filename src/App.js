@@ -6,7 +6,6 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
-  const [attendingStatus, setAttendingStatus] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -185,7 +184,7 @@ export default function App() {
                   <input
                     type="checkbox"
                     aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
-                    checked={g.attendingStatus}
+                    checked={g.attending}
                     onChange={() => {
                       console.log(JSON.stringify(g.attending));
                       if (JSON.stringify(g.attending) === 'false') {
@@ -197,7 +196,6 @@ export default function App() {
                           console.log(error);
                         });
                       }
-                      setAttendingStatus(g.attending);
                     }}
                   />
                 </div>
