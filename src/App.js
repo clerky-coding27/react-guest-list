@@ -41,7 +41,7 @@ export default function App() {
     createGuests().catch((error) => {
       console.log(error);
     });
-  }, [guests]);
+  }, []);
 
   useEffect(() => {
     async function getOneGuest() {
@@ -59,10 +59,15 @@ export default function App() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
+    console.log(response);
+    // setAllGuestsServer(response);
     console.log(deletedGuest);
-    // console.log(allGuestsServer);
-    setAllGuestsServer([...allGuestsServer]);
+    // console.log(allGuestsServer););
   }
+
+  useEffect(() => {
+    console.log('Guestlist was updated');
+  }, [allGuestsServer]);
 
   return (
     <div className="App">
@@ -141,6 +146,11 @@ export default function App() {
                       handleRemove(g).catch((error) => {
                         console.log(error);
                       });
+                      const index = guests.indexOf(g);
+                      guests.splice(index, 1);
+                      console.log(guests);
+                      setGuests([...allGuestsServer]);
+                      // console.log(allGuestsServer);
                     }}
                   >
                     Remove
