@@ -6,6 +6,7 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
+  const [attendingStatus, setAttendingStatus] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -39,6 +40,7 @@ export default function App() {
     console.log(createdGuest);
   }
 
+  /*
   useEffect(() => {
     async function getOneGuest() {
       const response = await fetch(`${baseUrl}/guests/:6`);
@@ -50,15 +52,44 @@ export default function App() {
     });
   }, []);
 
+  */
+
   async function handleRemove(g) {
     const response = await fetch(`${baseUrl}/guests/${g.id}`, {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    console.log(response);
     // setAllGuestsServer(response);
     console.log(deletedGuest);
     // console.log(allGuestsServer););
+  }
+
+  async function handleUpdateAttendingTrue(g) {
+    const response = await fetch(`${baseUrl}/guests/${g.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: true }),
+    });
+    const updatedGuest = await response.json();
+    setGuests([...allGuestsServer]);
+
+    console.log(updatedGuest);
+  }
+
+  async function handleUpdateAttendingFalse(g) {
+    const response = await fetch(`${baseUrl}/guests/${g.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: false }),
+    });
+    const updatedGuest = await response.json();
+    setGuests([...allGuestsServer]);
+
+    console.log(updatedGuest);
   }
 
   return (
@@ -153,7 +184,21 @@ export default function App() {
                   </button>
                   <input
                     type="checkbox"
-                    aria-label="<first name> <last name> <attending status>"
+                    aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                    checked={g.attendingStatus}
+                    onChange={() => {
+                      console.log(JSON.stringify(g.attending));
+                      if (JSON.stringify(g.attending) === 'false') {
+                        handleUpdateAttendingTrue(g).catch((error) => {
+                          console.log(error);
+                        });
+                      } else {
+                        handleUpdateAttendingFalse(g).catch((error) => {
+                          console.log(error);
+                        });
+                      }
+                      setAttendingStatus(g.attending);
+                    }}
                   />
                 </div>
               );
