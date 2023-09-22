@@ -15,8 +15,9 @@ export default function App() {
       setLoading(true);
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      setAllGuestsServer(allGuests);
       setLoading(false);
+
+      setAllGuestsServer(allGuests);
       console.log(`AllGuestsServer:`);
       console.log(allGuests);
     }
