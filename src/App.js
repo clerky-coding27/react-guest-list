@@ -6,7 +6,7 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -127,6 +127,7 @@ export default function App() {
               <input
                 id="First name"
                 value={firstNameInput}
+                disabled={loading}
                 onChange={(event) =>
                   setFirstNameInput(event.currentTarget.value)
                 }
@@ -137,6 +138,7 @@ export default function App() {
               <input
                 id="Last name"
                 value={lastNameInput}
+                disabled={loading}
                 onChange={(event) => setLastNameInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
