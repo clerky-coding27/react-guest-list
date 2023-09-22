@@ -1,4 +1,5 @@
 import './App.css';
+import './app.modules.scss';
 import React, { useEffect, useState } from 'react';
 
 export default function App() {

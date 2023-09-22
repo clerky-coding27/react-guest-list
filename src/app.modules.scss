@@ -1,0 +1,139 @@
+body,
+h1,
+h2,
+p,
+ul,
+li,
+form,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.header p {
+  font-size: 24px;
+}
+
+main {
+  padding: 20px 0;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.CreateGuest {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.CreateGuest h2 {
+  font-size: 20px;
+}
+
+.CreateGuest form {
+  margin-top: 10px;
+}
+
+.FirstName,
+.LastName {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #c0392b;
+}
+
+.GuestList-Section {
+  margin-top: 20px;
+}
+
+.GuestList {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.GuestList h2 {
+  font-size: 20px;
+}
+
+.ExampleGuest {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.ExampleGuest p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+label[for='AttendingStatus'] {
+  font-weight: normal;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+hr {
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer p {
+  font-size: 18px;
+}
