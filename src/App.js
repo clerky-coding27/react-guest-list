@@ -6,8 +6,25 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
+
+  useEffect(() => {
+    async function getAllGuestsInitial() {
+      setLoading(true);
+      const response = await fetch(`${baseUrl}/guests`);
+      const allGuests = await response.json();
+      setAllGuestsServer(allGuests);
+      setLoading(false);
+      console.log(`AllGuestsServer:`);
+      console.log(allGuests);
+    }
+    getAllGuestsInitial().catch((error) => {
+      setLoading(true);
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     async function getAllGuests() {
@@ -94,7 +111,7 @@ export default function App() {
   return (
     <div className="App">
       <header className="header">
-        <p>Header</p>
+        <p>Clara's Guestlist Creator</p>
       </header>
       <main>
         <h1>GuestList</h1>
@@ -123,11 +140,12 @@ export default function App() {
                 onChange={(event) => setLastNameInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
-                    const newGuest = {
+                    /* const newGuest = {
                       firstName: firstNameInput,
                       lastName: lastNameInput,
                       state: 'not attending',
                     };
+                    */
                     const newGuestList = [
                       ...guests,
                       {
@@ -156,68 +174,58 @@ export default function App() {
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
-
-            {allGuestsServer.map((g) => {
-              return (
-                <div
-                  className="ExampleGuest"
-                  key={`uniqueID-${g.firstName}-${g.id}`}
-                  data-test-id="guest"
-                >
-                  <p>{g.firstName}</p>
-                  <p>{g.lastName}</p>
-                  <p>{g.attending ? 'Attending' : 'Not attending'}</p>
-                  <button
-                    onClick={() => {
-                      handleRemove(g).catch((error) => {
-                        console.log(error);
-                      });
-                      const index = guests.indexOf(g);
-                      guests.splice(index, 1);
-                      console.log(guests);
-                      setGuests([...allGuestsServer]);
-                      // console.log(allGuestsServer);
-                    }}
-                  >
-                    Remove
-                  </button>
-                  <input
-                    type="checkbox"
-                    aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
-                    checked={g.attending}
-                    onChange={() => {
-                      console.log(JSON.stringify(g.attending));
-                      if (JSON.stringify(g.attending) === 'false') {
-                        handleUpdateAttendingTrue(g).catch((error) => {
-                          console.log(error);
-                        });
-                      } else {
-                        handleUpdateAttendingFalse(g).catch((error) => {
-                          console.log(error);
-                        });
-                      }
-                    }}
-                  />
-                </div>
-              );
-            })}
-
-            <div className="ExampleGuest" key="uniqueID" data-test-id="guest">
-              <p>FirstNameVariable</p>
-              <p>LastNameVariable</p>
-              <p>StatusVariable - default not attending</p>
-              <button>Remove</button>
-              <input
-                type="checkbox"
-                aria-label="<first name> <last name> <attending status>"
-              />
-              <hr />
-            </div>
+            {loading
+              ? 'Loading...'
+              : allGuestsServer.map((g) => {
+                  return (
+                    <div
+                      className="ExampleGuest"
+                      key={`uniqueID-${g.firstName}-${g.id}`}
+                      data-test-id="guest"
+                    >
+                      <p>{g.firstName}</p>
+                      <p>{g.lastName}</p>
+                      <p>{g.attending ? 'Attending' : 'Not attending'}</p>
+                      <button
+                        onClick={() => {
+                          handleRemove(g).catch((error) => {
+                            console.log(error);
+                          });
+                          const index = guests.indexOf(g);
+                          guests.splice(index, 1);
+                          console.log(guests);
+                          setGuests([...allGuestsServer]);
+                          // console.log(allGuestsServer);
+                        }}
+                      >
+                        Remove
+                      </button>
+                      <input
+                        type="checkbox"
+                        aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                        checked={g.attending}
+                        onChange={() => {
+                          console.log(JSON.stringify(g.attending));
+                          if (JSON.stringify(g.attending) === 'false') {
+                            handleUpdateAttendingTrue(g).catch((error) => {
+                              console.log(error);
+                            });
+                          } else {
+                            handleUpdateAttendingFalse(g).catch((error) => {
+                              console.log(error);
+                            });
+                          }
+                        }}
+                      />
+                    </div>
+                  );
+                })}
           </div>
         </div>
       </main>
+      <hr />
       <footer>
-        <p>Footer</p>
+        <p>Contact</p>
       </footer>
     </div>
   );
