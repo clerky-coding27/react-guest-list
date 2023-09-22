@@ -1,4 +1,3 @@
-import './App.css';
 import './app.modules.scss';
 import React, { useEffect, useState } from 'react';
 
@@ -127,9 +126,6 @@ export default function App() {
 
   return (
     <div className="App">
-      <header className="header">
-        <p>Clara's Guestlist Creator</p>
-      </header>
       <main>
         <h1>GuestList</h1>
         <div className="CreateGuest">
@@ -189,7 +185,6 @@ export default function App() {
             </div>
           </form>
         </div>
-        <hr />
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
@@ -204,10 +199,15 @@ export default function App() {
                     >
                       <p>
                         {g.firstName} {g.lastName}{' '}
-                        {g.attending ? ' | Attending' : ' | Not attending'}
                       </p>
-
-                      <label htmlFor="AttendingStatus">Attending Yes/No</label>
+                      <p>
+                        {g.attending
+                          ? 'Status: Attending'
+                          : 'Status: Not attending'}
+                      </p>
+                      <label htmlFor="AttendingStatus">
+                        Change attending status:
+                      </label>
                       <input
                         type="checkbox"
                         id="AttendingStatus"
@@ -249,10 +249,6 @@ export default function App() {
           </div>
         </div>
       </main>
-      <hr />
-      <footer>
-        <p>Contact</p>
-      </footer>
     </div>
   );
 }
