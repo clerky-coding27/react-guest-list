@@ -7,25 +7,16 @@ export default function App() {
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [initialServerResponse, setInitialServerResponse] = useState([]);
 
   const baseUrl = 'http://localhost:4000';
 
-  function setLoadingtoFalse() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(setLoading(false));
-      }, 2000);
-    });
-  }
-
+  /*
   useEffect(() => {
     async function getAllGuestsInitialAPI() {
       setLoading(true);
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      await setLoadingtoFalse();
-      console.log();
+      setLoading(false);
       setAllGuestsServer(allGuests);
     }
     getAllGuestsInitialAPI().catch((error) => {
@@ -33,6 +24,25 @@ export default function App() {
       console.log(error);
     });
   }, []);
+*/
+
+  // trial
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${baseUrl}/guests`)
+      .then((response) => response.json())
+      .then(setLoading(false))
+      .then((data) => {
+        const allGuests = data;
+        setAllGuestsServer([...allGuests]);
+      })
+      .catch((error) => {
+        setLoading(true);
+        console.log(error);
+      });
+  }, []);
+
+  //
 
   useEffect(() => {
     async function getAllGuests() {
