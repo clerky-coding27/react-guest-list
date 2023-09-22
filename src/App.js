@@ -123,7 +123,7 @@ export default function App() {
             }}
           >
             <div className="FirstName">
-              <label htmlFor="First name">First Name</label>
+              <label htmlFor="First name">First name</label>
               <input
                 id="First name"
                 value={firstNameInput}
@@ -134,7 +134,7 @@ export default function App() {
               />
             </div>
             <div className="LastName">
-              <label htmlFor="Last name">Last Name</label>
+              <label htmlFor="Last name">Last name</label>
               <input
                 id="Last name"
                 value={lastNameInput}
