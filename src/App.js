@@ -185,25 +185,15 @@ export default function App() {
                       key={`uniqueID-${g.firstName}-${g.id}`}
                       data-test-id="guest"
                     >
-                      <p>{g.firstName}</p>
-                      <p>{g.lastName}</p>
-                      <p>{g.attending ? 'Attending' : 'Not attending'}</p>
-                      <button
-                        onClick={() => {
-                          handleRemove(g).catch((error) => {
-                            console.log(error);
-                          });
-                          const index = guests.indexOf(g);
-                          guests.splice(index, 1);
-                          console.log(guests);
-                          setGuests([...allGuestsServer]);
-                          // console.log(allGuestsServer);
-                        }}
-                      >
-                        Remove
-                      </button>
+                      <p>
+                        {g.firstName} {g.lastName}{' '}
+                        {g.attending ? ' | Attending' : ' | Not attending'}
+                      </p>
+
+                      <label htmlFor="AttendingStatus">Attending Yes/No</label>
                       <input
                         type="checkbox"
+                        id="AttendingStatus"
                         aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
                         checked={g.attending}
                         onChange={() => {
@@ -219,6 +209,23 @@ export default function App() {
                           }
                         }}
                       />
+                      <br />
+                      <button
+                        onClick={() => {
+                          handleRemove(g).catch((error) => {
+                            console.log(error);
+                          });
+                          const index = guests.indexOf(g);
+                          guests.splice(index, 1);
+                          console.log(guests);
+                          setGuests([...allGuestsServer]);
+                          // console.log(allGuestsServer);
+                        }}
+                      >
+                        Remove
+                      </button>
+                      <br />
+                      <br />
                     </div>
                   );
                 })}
