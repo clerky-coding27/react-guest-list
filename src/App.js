@@ -6,7 +6,7 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -15,13 +15,13 @@ export default function App() {
       setLoading(true);
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
-      setLoading(false);
       setAllGuestsServer(allGuests);
+      setLoading(false);
       console.log(`AllGuestsServer:`);
       console.log(allGuests);
     }
     getAllGuestsInitial().catch((error) => {
-      setLoading(false);
+      setLoading(true);
       console.log(error);
     });
   }, []);
