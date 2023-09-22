@@ -11,21 +11,29 @@ export default function App() {
   const baseUrl = 'http://localhost:4000';
 
   useEffect(() => {
-    async function getAllGuestsInitial() {
+    async function getAllGuestsInitialAPI() {
       setLoading(true);
       const response = await fetch(`${baseUrl}/guests`);
       const allGuests = await response.json();
       setLoading(false);
-
-      setAllGuestsServer(allGuests);
-      console.log(`AllGuestsServer:`);
-      console.log(allGuests);
     }
-    getAllGuestsInitial().catch((error) => {
+    getAllGuestsInitialAPI().catch((error) => {
       setLoading(true);
       console.log(error);
     });
   }, []);
+
+  // added this in order to prevent the guests listing before the loading state is set to false and from fields are disabled
+  useEffect(() => {
+    async function getAllGuestsInitial() {
+      const response = await fetch(`${baseUrl}/guests`);
+      const allGuests = await response.json();
+      setAllGuestsServer(allGuests);
+    }
+    getAllGuestsInitial().catch((error) => {
+      console.log(error);
+    });
+  }, [loading]);
 
   useEffect(() => {
     async function getAllGuests() {
