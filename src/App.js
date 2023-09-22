@@ -32,8 +32,7 @@ export default function App() {
       .then(setLoading(false))
       .then((response) => response.json())
       .then((data) => {
-        const allGuests = data;
-        setAllGuestsServer([...allGuests]);
+        setAllGuestsServer([...data]);
       })
       .catch((error) => {
         setLoading(true);
