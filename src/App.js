@@ -6,10 +6,9 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
-
   /*
   useEffect(() => {
     async function getAllGuestsInitialAPI() {
@@ -26,16 +25,18 @@ export default function App() {
   }, []);
 */
 
-  // trial
+  // trial to get (loading-> false) to happen before
   useEffect(() => {
+    setLoading(true);
     fetch(`${baseUrl}/guests`)
-      .then((response) => response.json())
       .then(setLoading(false))
+      .then((response) => response.json())
       .then((data) => {
         const allGuests = data;
         setAllGuestsServer([...allGuests]);
       })
       .catch((error) => {
+        setLoading(true);
         console.log(error);
       });
   }, []);
