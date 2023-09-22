@@ -6,7 +6,7 @@ export default function App() {
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -28,7 +28,6 @@ export default function App() {
 
   // trial
   useEffect(() => {
-    setLoading(true);
     fetch(`${baseUrl}/guests`)
       .then((response) => response.json())
       .then(setLoading(false))
@@ -37,7 +36,6 @@ export default function App() {
         setAllGuestsServer([...allGuests]);
       })
       .catch((error) => {
-        setLoading(true);
         console.log(error);
       });
   }, []);
