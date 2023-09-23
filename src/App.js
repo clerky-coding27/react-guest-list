@@ -96,6 +96,19 @@ export default function App() {
     // console.log(allGuestsServer););
   }
 
+  async function handleRemoveAll() {
+    const response = allGuestsServer.map((g) => {
+      return fetch(`${baseUrl}/guests/${g.id}`, {
+        method: 'DELETE',
+      });
+    });
+    const deleteAllGuests = await response.json();
+    console.log(deleteAllGuests);
+
+    // setAllGuestsServer(response);
+    // console.log(allGuestsServer););
+  }
+
   async function handleUpdateAttendingTrue(g) {
     const response = await fetch(`${baseUrl}/guests/${g.id}`, {
       method: 'PUT',
@@ -188,6 +201,19 @@ export default function App() {
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
+            <button
+              className="RemoveALL"
+              onClick={() => {
+                handleRemoveAll().catch((error) => {
+                  console.log(error);
+                });
+                const currentGuestList = [...allGuestsServer];
+                setGuests([...allGuestsServer]);
+                console.log(currentGuestList);
+              }}
+            >
+              Remove All
+            </button>
             <table className="audit table">
               <thead className="table-th">
                 <tr>
