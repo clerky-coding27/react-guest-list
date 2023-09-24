@@ -7,6 +7,11 @@ export default function App() {
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filterOn, setFilterOn] = useState(false);
+  const [filter, setFilter] = useState([]);
+  const [filterAll, setFilterAll] = useState(false);
+  const [filterAttending, setFilterAttending] = useState(false);
+  const [filterNotAttending, setFilterNotAttending] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
   /*
@@ -93,6 +98,19 @@ export default function App() {
     const deletedGuest = await response.json();
     // setAllGuestsServer(response);
     console.log(deletedGuest);
+    // console.log(allGuestsServer););
+  }
+
+  async function handleRemoveAll() {
+    const response = allGuestsServer.map((g) => {
+      return fetch(`${baseUrl}/guests/${g.id}`, {
+        method: 'DELETE',
+      });
+    });
+    const deleteAllGuests = await response.json();
+    console.log(deleteAllGuests);
+
+    // setAllGuestsServer(response);
     // console.log(allGuestsServer););
   }
 
@@ -188,64 +206,200 @@ export default function App() {
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
-            {loading
-              ? 'Loading...'
-              : allGuestsServer.map((g) => {
-                  return (
-                    <div
-                      className="ExampleGuest"
-                      key={`uniqueID-${g.firstName}-${g.id}`}
-                      data-test-id="guest"
-                    >
-                      <p>
-                        {g.firstName} {g.lastName}{' '}
-                      </p>
-                      <p>
-                        {g.attending
-                          ? 'Status: Attending'
-                          : 'Status: Not attending'}
-                      </p>
-                      <label htmlFor="AttendingStatus">
-                        Change attending status:
-                      </label>
-                      <input
-                        type="checkbox"
-                        id="AttendingStatus"
-                        aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
-                        checked={g.attending}
-                        onChange={() => {
-                          console.log(JSON.stringify(g.attending));
-                          if (JSON.stringify(g.attending) === 'false') {
-                            handleUpdateAttendingTrue(g).catch((error) => {
-                              console.log(error);
-                            });
-                          } else {
-                            handleUpdateAttendingFalse(g).catch((error) => {
-                              console.log(error);
-                            });
-                          }
-                        }}
-                      />
-                      <br />
-                      <button
-                        onClick={() => {
-                          handleRemove(g).catch((error) => {
-                            console.log(error);
-                          });
-                          const index = guests.indexOf(g);
-                          guests.splice(index, 1);
-                          console.log(guests);
-                          setGuests([...allGuestsServer]);
-                          // console.log(allGuestsServer);
-                        }}
-                      >
-                        Remove
-                      </button>
-                      <br />
-                      <br />
-                    </div>
+            <button
+              className="RemoveAll"
+              onClick={() => {
+                handleRemoveAll().catch((error) => {
+                  console.log(error);
+                });
+                const currentGuestList = [...allGuestsServer];
+                setGuests([...allGuestsServer]);
+                console.log(currentGuestList);
+              }}
+            >
+              Remove All
+            </button>
+            <div className="Filter">
+              <button
+                className={`filter-${filterAll}`}
+                onClick={() => {
+                  console.log('Show all');
+                  setFilterOn(false);
+                  setFilterAll(true);
+
+                  setFilterAttending(false);
+
+                  setFilterNotAttending(false);
+                }}
+              >
+                Filter: Show All
+              </button>
+              <button
+                className={`filter-${filterAttending}`}
+                onClick={() => {
+                  console.log('Show Attending');
+                  setFilterOn(true);
+                  setFilterAll(false);
+
+                  setFilterAttending(true);
+
+                  setFilterNotAttending(false);
+                  const showAttending = [...allGuestsServer].filter(
+                    (g) => g.attending === true,
                   );
-                })}
+                  setFilter(showAttending);
+                  console.log(showAttending);
+                }}
+              >
+                Filter: Show Attending
+              </button>
+              <button
+                className={`filter-${filterNotAttending}`}
+                onClick={() => {
+                  console.log('Show Not Attending');
+                  setFilterOn(true);
+                  setFilterAll(false);
+
+                  setFilterAttending(false);
+
+                  setFilterNotAttending(true);
+                  const showNotAttending = [...allGuestsServer].filter(
+                    (g) => g.attending === false,
+                  );
+                  setFilter(showNotAttending);
+                  console.log(showNotAttending);
+                  console.log(`filter-${filterNotAttending}`);
+                }}
+              >
+                Filter: Show Not Attending
+              </button>
+            </div>
+            <table className="audit table">
+              <thead className="table-th">
+                <tr>
+                  <th>Guest Name</th>
+                  <th>Attending Status</th>
+                  <th>Change Status</th>
+                  <th>Remove Guest</th>
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {loading ? 'Loading...' : ''}
+                {filterOn
+                  ? ''
+                  : allGuestsServer.map((g) => {
+                      return (
+                        <tr
+                          className="ExampleGuest"
+                          key={`uniqueID-${g.firstName}-${g.id}`}
+                          data-test-id="guest"
+                        >
+                          <td>
+                            {g.firstName} {g.lastName}{' '}
+                          </td>
+                          <td>{g.attending ? 'Attending' : 'Not attending'}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              id="AttendingStatus"
+                              aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                              checked={g.attending}
+                              onChange={() => {
+                                console.log(JSON.stringify(g.attending));
+                                if (JSON.stringify(g.attending) === 'false') {
+                                  handleUpdateAttendingTrue(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                } else {
+                                  handleUpdateAttendingFalse(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                }
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                handleRemove(g).catch((error) => {
+                                  console.log(error);
+                                });
+                                const index = guests.indexOf(g);
+                                guests.splice(index, 1);
+                                console.log(guests);
+                                setGuests([...allGuestsServer]);
+                                // console.log(allGuestsServer);
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                {!filterOn
+                  ? ''
+                  : filter.map((g) => {
+                      return (
+                        <tr
+                          className="ExampleGuest"
+                          key={`uniqueID-${g.firstName}-${g.id}`}
+                          data-test-id="guest"
+                        >
+                          <td>
+                            {g.firstName} {g.lastName}{' '}
+                          </td>
+                          <td>{g.attending ? 'Attending' : 'Not attending'}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              id="AttendingStatus"
+                              aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                              checked={g.attending}
+                              onChange={() => {
+                                console.log(JSON.stringify(g.attending));
+                                if (JSON.stringify(g.attending) === 'false') {
+                                  handleUpdateAttendingTrue(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                } else {
+                                  handleUpdateAttendingFalse(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                }
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                handleRemove(g).catch((error) => {
+                                  console.log(error);
+                                });
+                                const index = guests.indexOf(g);
+                                guests.splice(index, 1);
+                                console.log(guests);
+                                setGuests([...allGuestsServer]);
+                                // console.log(allGuestsServer);
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
