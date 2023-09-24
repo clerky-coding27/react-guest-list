@@ -12,26 +12,29 @@ p {
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
   padding: 20px;
+  height: 100vw;
+  width: 100vw;
 }
 
 /* Style the main content area */
 main {
   background-color: #fff;
   border-radius: 5px;
+  max-width: 80vw;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 400px;
 }
 
 /* Style the GuestList heading */
 h1 {
   font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* Style the CreateGuest section */
-.CreateGuest {
   margin-bottom: 20px;
 }
 
@@ -45,6 +48,8 @@ h2 {
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Style the input fields */
@@ -58,10 +63,13 @@ input {
 }
 
 /* Style the Manage Guestlist section */
+.CreateGuest,
 .GuestList-Section {
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 20px;
+  min-height: 400px;
+  text-align: center;
 }
 
 /* Style the Manage Guestlist heading */
@@ -91,6 +99,19 @@ input {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  button {
+    background-color: lightcoral;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+.RemoveAll {
+  background-color: rgb(137, 78, 78);
 }
 
 /* Style the ExampleGuest items */
@@ -108,7 +129,7 @@ label[for='AttendingStatus'] {
 
 /* Style the Remove button */
 button {
-  background-color: #f44336;
+  background-color: gray;
   color: white;
   border: none;
   border-radius: 5px;
@@ -123,11 +144,6 @@ button {
   font-weight: bold;
 }
 
-.RemoveAll {
-  margin: 0px 0px 20px 0px;
-  width: 200px;
-}
-
 .Filter {
   margin: 0px 20px 20px 20px;
   display: flex;
@@ -140,5 +156,5 @@ button {
 }
 
 .filter-true {
-  background-color: green;
+  background-color: rgb(54, 95, 54);
 }

@@ -9,7 +9,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
   const [filter, setFilter] = useState([]);
-  const [filterAll, setFilterAll] = useState(false);
+  const [filterAll, setFilterAll] = useState(true);
   const [filterAttending, setFilterAttending] = useState(false);
   const [filterNotAttending, setFilterNotAttending] = useState(false);
 
@@ -144,8 +144,10 @@ export default function App() {
 
   return (
     <div className="App">
-      <main>
+      <header>
         <h1>GuestList</h1>
+      </header>
+      <main>
         <div className="CreateGuest">
           <h2>Add Guest Name:</h2>
           <form
@@ -206,19 +208,7 @@ export default function App() {
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
-            <button
-              className="RemoveAll"
-              onClick={() => {
-                handleRemoveAll().catch((error) => {
-                  console.log(error);
-                });
-                const currentGuestList = [...allGuestsServer];
-                setGuests([...allGuestsServer]);
-                console.log(currentGuestList);
-              }}
-            >
-              Remove All
-            </button>
+
             <div className="Filter">
               <button
                 className={`filter-${filterAll}`}
@@ -398,6 +388,26 @@ export default function App() {
                         </tr>
                       );
                     })}
+                <tr className="ExampleGuest">
+                  <td>{`Total Guestcount: ${allGuestsServer.length}`}</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>
+                    <button
+                      className="RemoveAll"
+                      onClick={() => {
+                        handleRemoveAll().catch((error) => {
+                          console.log(error);
+                        });
+                        const currentGuestList = [...allGuestsServer];
+                        setGuests([...allGuestsServer]);
+                        console.log(currentGuestList);
+                      }}
+                    >
+                      Remove All
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
