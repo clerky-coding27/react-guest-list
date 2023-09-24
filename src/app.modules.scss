@@ -124,4 +124,20 @@ button {
 
 .RemoveAll {
   margin: 0px 0px 20px 0px;
+  width: 200px;
+}
+
+.Filter {
+  margin: 0px 20px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  button {
+    width: 200px;
+  }
+}
+
+.filter-true {
+  background-color: green;
 }

@@ -9,6 +9,9 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
   const [filter, setFilter] = useState([]);
+  const [filterAll, setFilterAll] = useState(false);
+  const [filterAttending, setFilterAttending] = useState(false);
+  const [filterNotAttending, setFilterNotAttending] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
   /*
@@ -218,19 +221,29 @@ export default function App() {
             </button>
             <div className="Filter">
               <button
-                className="FilterShowAll"
+                className={`filter-${filterAll}`}
                 onClick={() => {
                   console.log('Show all');
                   setFilterOn(false);
+                  setFilterAll(true);
+
+                  setFilterAttending(false);
+
+                  setFilterNotAttending(false);
                 }}
               >
                 Filter: Show All
               </button>
               <button
-                className="FilterShowAttending"
+                className={`filter-${filterAttending}`}
                 onClick={() => {
                   console.log('Show Attending');
                   setFilterOn(true);
+                  setFilterAll(false);
+
+                  setFilterAttending(true);
+
+                  setFilterNotAttending(false);
                   const showAttending = [...allGuestsServer].filter(
                     (g) => g.attending === true,
                   );
@@ -241,15 +254,21 @@ export default function App() {
                 Filter: Show Attending
               </button>
               <button
-                className="FilterShowNotAttending"
+                className={`filter-${filterNotAttending}`}
                 onClick={() => {
                   console.log('Show Not Attending');
                   setFilterOn(true);
+                  setFilterAll(false);
+
+                  setFilterAttending(false);
+
+                  setFilterNotAttending(true);
                   const showNotAttending = [...allGuestsServer].filter(
                     (g) => g.attending === false,
                   );
                   setFilter(showNotAttending);
                   console.log(showNotAttending);
+                  console.log(`filter-${filterNotAttending}`);
                 }}
               >
                 Filter: Show Not Attending
