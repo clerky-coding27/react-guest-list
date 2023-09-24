@@ -7,6 +7,8 @@ export default function App() {
   const [guests, setGuests] = useState([]);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filterOn, setFilterOn] = useState(false);
+  const [filter, setFilter] = useState([]);
 
   const baseUrl = 'http://localhost:4000';
   /*
@@ -202,7 +204,7 @@ export default function App() {
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
             <button
-              className="RemoveALL"
+              className="RemoveAll"
               onClick={() => {
                 handleRemoveAll().catch((error) => {
                   console.log(error);
@@ -214,6 +216,45 @@ export default function App() {
             >
               Remove All
             </button>
+            <div className="Filter">
+              <button
+                className="FilterShowAll"
+                onClick={() => {
+                  console.log('Show all');
+                  setFilterOn(false);
+                }}
+              >
+                Filter: Show All
+              </button>
+              <button
+                className="FilterShowAttending"
+                onClick={() => {
+                  console.log('Show Attending');
+                  setFilterOn(true);
+                  const showAttending = [...allGuestsServer].filter(
+                    (g) => g.attending === true,
+                  );
+                  setFilter(showAttending);
+                  console.log(showAttending);
+                }}
+              >
+                Filter: Show Attending
+              </button>
+              <button
+                className="FilterShowNotAttending"
+                onClick={() => {
+                  console.log('Show Not Attending');
+                  setFilterOn(true);
+                  const showNotAttending = [...allGuestsServer].filter(
+                    (g) => g.attending === false,
+                  );
+                  setFilter(showNotAttending);
+                  console.log(showNotAttending);
+                }}
+              >
+                Filter: Show Not Attending
+              </button>
+            </div>
             <table className="audit table">
               <thead className="table-th">
                 <tr>
@@ -224,9 +265,67 @@ export default function App() {
                 </tr>
               </thead>
               <tbody className="table-body">
-                {loading
-                  ? 'Loading...'
+                {loading ? 'Loading...' : ''}
+                {filterOn
+                  ? ''
                   : allGuestsServer.map((g) => {
+                      return (
+                        <tr
+                          className="ExampleGuest"
+                          key={`uniqueID-${g.firstName}-${g.id}`}
+                          data-test-id="guest"
+                        >
+                          <td>
+                            {g.firstName} {g.lastName}{' '}
+                          </td>
+                          <td>{g.attending ? 'Attending' : 'Not attending'}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              id="AttendingStatus"
+                              aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                              checked={g.attending}
+                              onChange={() => {
+                                console.log(JSON.stringify(g.attending));
+                                if (JSON.stringify(g.attending) === 'false') {
+                                  handleUpdateAttendingTrue(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                } else {
+                                  handleUpdateAttendingFalse(g).catch(
+                                    (error) => {
+                                      console.log(error);
+                                    },
+                                  );
+                                }
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                handleRemove(g).catch((error) => {
+                                  console.log(error);
+                                });
+                                const index = guests.indexOf(g);
+                                guests.splice(index, 1);
+                                console.log(guests);
+                                setGuests([...allGuestsServer]);
+                                // console.log(allGuestsServer);
+                              }}
+                            >
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                {!filterOn
+                  ? ''
+                  : filter.map((g) => {
                       return (
                         <tr
                           className="ExampleGuest"
