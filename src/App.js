@@ -14,13 +14,11 @@ export default function App() {
   const [filterAttending, setFilterAttending] = useState(false);
   const [filterNotAttending, setFilterNotAttending] = useState(false);
 
-  /*
-  const [oneGuest, setOneGuest] = useState([]);
+  // const [oneGuest, setOneGuest] = useState([]);
   const [nameEditButton, setNameEditButton] = useState(false);
-*/
 
   const baseUrl = 'http://localhost:4000';
-  /*
+
   useEffect(() => {
     async function getAllGuestsInitialAPI() {
       setLoading(true);
@@ -34,8 +32,8 @@ export default function App() {
       console.log(error);
     });
   }, []);
-*/
 
+  /*
   // trial to get (loading-> false) to happen before
   useEffect(() => {
     setLoading(true);
@@ -50,7 +48,7 @@ export default function App() {
         console.log(error);
       });
   }, []);
-
+*/
   //
 
   useEffect(() => {
@@ -82,13 +80,6 @@ export default function App() {
     console.log(`CreatedGuestServer:`);
     console.log(createdGuest);
   }
-
-  /*
-  useEffect(() => {
-
-  }, []);
-
-  */
 
   async function handleRemove(g) {
     const response = await fetch(`${baseUrl}/guests/${g.id}`, {
@@ -221,25 +212,24 @@ export default function App() {
                 }}
               />
             </div>
-            {/* <div>
+            <div>
               {nameEditButton ? (
                 ''
               ) : (
                 <div>
                   <button
                     className="NameEditSend"
-                    onClick={() => {
-                      // setFirstNameInput();
+                    /*  onClick={() => {
                       // setFirstNameInput('');
                       // setLastNameInput('');
                     }}
+                    */
                   >
                     Update Name
                   </button>
                 </div>
               )}
             </div>
-                  */}
           </form>
         </div>
         <div className="GuestList-Section">
@@ -334,7 +324,7 @@ export default function App() {
                                 setLastNameInput(g.lastName);
                                 // oneGuest(g);
 
-                                // nameEditButton(true);
+                                setNameEditButton(true);
                               }}
                             >
                               Update
