@@ -5,6 +5,9 @@ export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
+  const [oneGuest, setOneGuest] = useState([]);
+
+  const [nameEditButton, setNameEditButton] = useState(false);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
@@ -79,14 +82,7 @@ export default function App() {
 
   /*
   useEffect(() => {
-    async function getOneGuest() {
-      const response = await fetch(`${baseUrl}/guests/:6`);
-      const guest = await response.json();
-      console.log(guest);
-    }
-    getOneGuest().catch((error) => {
-      console.log(error);
-    });
+
   }, []);
 
   */
@@ -141,6 +137,25 @@ export default function App() {
 
     console.log(updatedGuest);
   }
+
+  /*
+  async function handleNameUpdate(g) {
+    const response = await fetch(`${baseUrl}/guests/${g.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: firstNameInput,
+        lastName: lastNameInput,
+      }),
+    });
+    const updatedGuestName = await response.json();
+    setGuests([...allGuestsServer]);
+
+    console.log(updatedGuestName);
+  }
+  */
 
   return (
     <div className="App">
@@ -202,6 +217,24 @@ export default function App() {
                   }
                 }}
               />
+            </div>
+            <div>
+              {nameEditButton ? (
+                ''
+              ) : (
+                <div>
+                  <button
+                    className="NameEditSend"
+                    onClick={() => {
+                      // setFirstNameInput();
+                      // setFirstNameInput('');
+                      // setLastNameInput('');
+                    }}
+                  >
+                    Update Name
+                  </button>
+                </div>
+              )}
             </div>
           </form>
         </div>
@@ -268,6 +301,8 @@ export default function App() {
               <thead className="table-th">
                 <tr>
                   <th>Guest Name</th>
+                  <th>Update Name</th>
+
                   <th>Attending Status</th>
                   <th>Change Status</th>
                   <th>Remove Guest</th>
@@ -285,7 +320,21 @@ export default function App() {
                           data-test-id="guest"
                         >
                           <td>
-                            {g.firstName} {g.lastName}{' '}
+                            {g.firstName} {g.lastName}
+                          </td>
+                          <td>
+                            <button
+                              className="UpdateName"
+                              onClick={() => {
+                                setFirstNameInput(g.firstName);
+                                setLastNameInput(g.lastName);
+                                // oneGuest(g);
+
+                                // nameEditButton(true);
+                              }}
+                            >
+                              Update
+                            </button>
                           </td>
                           <td>{g.attending ? 'Attending' : 'Not attending'}</td>
                           <td>
@@ -392,6 +441,8 @@ export default function App() {
                   <td>{`Total Guestcount: ${allGuestsServer.length}`}</td>
                   <td> </td>
                   <td> </td>
+                  <td> </td>
+
                   <td>
                     <button
                       className="RemoveAll"
