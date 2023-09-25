@@ -393,6 +393,20 @@ export default function App() {
                           <td>
                             {g.firstName} {g.lastName}{' '}
                           </td>
+                          <td>
+                            <button
+                              className="UpdateName"
+                              onClick={() => {
+                                setFirstNameInput(g.firstName);
+                                setLastNameInput(g.lastName);
+                                // oneGuest(g);
+
+                                // nameEditButton(true);
+                              }}
+                            >
+                              Update
+                            </button>
+                          </td>
                           <td>{g.attending ? 'Attending' : 'Not attending'}</td>
                           <td>
                             <input
