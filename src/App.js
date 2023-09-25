@@ -99,6 +99,8 @@ export default function App() {
       });
     });
     const deleteAllGuests = await response.json();
+    setGuests([...allGuestsServer]);
+
     console.log(deleteAllGuests);
 
     // setAllGuestsServer(response);
@@ -248,9 +250,10 @@ export default function App() {
                     data-test-id="guest"
                   >
                     <p>
-                      {g.firstName} {g.lastName}
+                      {g.firstName} {g.lastName}{' '}
+                      {g.attending ? ' | Attending' : ' | Not attending'}
                     </p>
-                    <p>{g.attending ? 'Attending' : 'Not attending'}</p>
+
                     <input
                       type="checkbox"
                       aria-label={`${g.firstName} ${g.lastName} attending status`}
@@ -273,15 +276,13 @@ export default function App() {
                         handleRemove(g).catch((error) => {
                           console.log(error);
                         });
-                        const index = guests.indexOf(g);
-                        guests.splice(index, 1);
-                        console.log(guests);
-                        setGuests([...guests]);
+
                         // console.log(allGuestsServer);
                       }}
                     >
                       Remove
                     </button>
+
                     <br />
                     <br />
                   </div>
@@ -290,7 +291,6 @@ export default function App() {
             </div>
           </div>
         </div>
-
         <div className="Manage-GuestList-Section">
           <div className="Edit Guestlist">
             <h2>Manage Guestlist:</h2>
