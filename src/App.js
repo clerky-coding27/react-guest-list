@@ -426,7 +426,7 @@ export default function App() {
                                 // console.log(allGuestsServer);
                               }}
                             >
-                              Remove
+                              Remove List Item
                             </button>
                           </td>
                         </tr>
