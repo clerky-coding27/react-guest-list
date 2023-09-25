@@ -86,7 +86,8 @@ export default function App() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    // setAllGuestsServer(response);
+    setGuests([...allGuestsServer]);
+    // setAllGuestsServer([...response]);
     console.log(deletedGuest);
     // console.log(allGuestsServer););
   }
@@ -275,7 +276,7 @@ export default function App() {
                         const index = guests.indexOf(g);
                         guests.splice(index, 1);
                         console.log(guests);
-                        setGuests([...allGuestsServer]);
+                        setGuests([...guests]);
                         // console.log(allGuestsServer);
                       }}
                     >
