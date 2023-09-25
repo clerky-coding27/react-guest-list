@@ -1,5 +1,5 @@
+import './App.modules.scss';
 import React, { useEffect, useState } from 'react';
-import styles from './App.modules.scss';
 
 export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('');
@@ -152,7 +152,7 @@ export default function App() {
   */
 
   return (
-    <div className={styles.App}>
+    <div className="App">
       <header>
         <h1>GuestList</h1>
       </header>
