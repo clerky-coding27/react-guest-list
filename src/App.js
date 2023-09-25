@@ -252,7 +252,7 @@ export default function App() {
                     <p>{g.attending ? 'Attending' : 'Not attending'}</p>
                     <input
                       type="checkbox"
-                      aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                      aria-label={`${g.firstName} ${g.lastName} attending status`}
                       checked={g.attending}
                       onChange={() => {
                         console.log(JSON.stringify(g.attending));
