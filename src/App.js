@@ -17,7 +17,7 @@ export default function App() {
   const [filterNotAttending, setFilterNotAttending] = useState(false);
 
   const baseUrl = 'http://localhost:4000';
-  /*
+
   useEffect(() => {
     async function getAllGuestsInitialAPI() {
       setLoading(true);
@@ -31,8 +31,8 @@ export default function App() {
       console.log(error);
     });
   }, []);
-*/
 
+  /*
   // trial to get (loading-> false) to happen before
   useEffect(() => {
     setLoading(true);
@@ -48,6 +48,7 @@ export default function App() {
       });
   }, []);
 
+  */
   //
 
   useEffect(() => {
@@ -241,7 +242,7 @@ export default function App() {
         <div className="GuestList-Section">
           <div className="GuestList">
             <h2>Manage Guestlist:</h2>
-
+            <p>{loading ? 'Loading...' : ''}</p>
             <div className="Filter">
               <button
                 className={`filter-${filterAll}`}
@@ -297,7 +298,7 @@ export default function App() {
                 Filter: Show Not Attending
               </button>
             </div>
-            <table className="audit table">
+            <table className="Guesttable">
               <thead className="table-th">
                 <tr>
                   <th>Guest Name</th>
@@ -309,7 +310,6 @@ export default function App() {
                 </tr>
               </thead>
               <tbody className="table-body">
-                {loading ? 'Loading...' : ''}
                 {filterOn
                   ? ''
                   : allGuestsServer.map((g) => {
