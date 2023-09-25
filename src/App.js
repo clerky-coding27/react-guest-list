@@ -393,7 +393,7 @@ export default function App() {
                             <input
                               type="checkbox"
                               id="AttendingStatus"
-                              aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                              // aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
                               checked={g.attending}
                               onChange={() => {
                                 console.log(JSON.stringify(g.attending));
@@ -463,7 +463,7 @@ export default function App() {
                             <input
                               type="checkbox"
                               id="AttendingStatus"
-                              aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
+                              // aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
                               checked={g.attending}
                               onChange={() => {
                                 console.log(JSON.stringify(g.attending));
