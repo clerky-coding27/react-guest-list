@@ -5,7 +5,6 @@ export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
-
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
@@ -17,7 +16,8 @@ export default function App() {
   // const [oneGuest, setOneGuest] = useState([]);
   const [nameEditButton, setNameEditButton] = useState(false);
 
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl =
+    'https://express-guest-list-api-memory-data-store-1--clerky-coding27.repl.co';
 
   useEffect(() => {
     async function getAllGuestsInitialAPI() {
