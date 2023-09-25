@@ -5,9 +5,7 @@ export default function App() {
   const [firstNameInput, setFirstNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [guests, setGuests] = useState([]);
-  const [oneGuest, setOneGuest] = useState([]);
 
-  const [nameEditButton, setNameEditButton] = useState(false);
   const [allGuestsServer, setAllGuestsServer] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterOn, setFilterOn] = useState(false);
@@ -15,6 +13,11 @@ export default function App() {
   const [filterAll, setFilterAll] = useState(true);
   const [filterAttending, setFilterAttending] = useState(false);
   const [filterNotAttending, setFilterNotAttending] = useState(false);
+
+  /*
+  const [oneGuest, setOneGuest] = useState([]);
+  const [nameEditButton, setNameEditButton] = useState(false);
+*/
 
   const baseUrl = 'http://localhost:4000';
   /*
@@ -218,7 +221,7 @@ export default function App() {
                 }}
               />
             </div>
-            <div>
+            {/* <div>
               {nameEditButton ? (
                 ''
               ) : (
@@ -236,6 +239,7 @@ export default function App() {
                 </div>
               )}
             </div>
+                  */}
           </form>
         </div>
         <div className="GuestList-Section">
