@@ -157,7 +157,7 @@ export default function App() {
         <h1>GuestList</h1>
       </header>
       <main>
-        <div className="CreateGuest -Section">
+        <div className="CreateGuest-Section">
           <h2>Add Guest Name:</h2>
           <form
             onSubmit={(event) => {
@@ -235,7 +235,7 @@ export default function App() {
         </div>
         <div className="GuestList-Section">
           <div className="GuestList">
-            <h2>Manage Guestlist:</h2>
+            <h2>See Guestlist:</h2>
 
             <div className="GuestListDrone">
               {loading ? 'Loading...' : ''}
@@ -252,7 +252,6 @@ export default function App() {
                     <p>{g.attending ? 'Attending' : 'Not attending'}</p>
                     <input
                       type="checkbox"
-                      id="AttendingStatus"
                       aria-label={`${g.firstName} ${g.lastName} ${g.attending}`}
                       checked={g.attending}
                       onChange={() => {

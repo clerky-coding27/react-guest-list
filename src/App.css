@@ -55,8 +55,9 @@ input {
   font-size: 16px;
 }
 
-.CreateGuest,
-.GuestList-Section {
+.CreateGuest-Section,
+.GuestList-Section,
+.Manage-GuestList-Section {
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 20px;
