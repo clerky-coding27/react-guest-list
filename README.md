@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Guest List App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Welcome to the Guest List App, a React-based application designed to streamline the management of your event's guest list. This application offers a user-friendly interface with features aimed at enhancing the overall event planning experience.
 
-In the project directory, you can run:
+👷 **This project is still under construction** 👷
+## Features
 
-### `npm start`
+### Adding a Guest
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Add a guest seamlessly using separate first name and last name fields.
+- Intuitive labels accompany each input, ensuring clarity for users.
+- Guests are created effortlessly by pressing "Return" in the last name input.
+- After creation, both fields are automatically cleared, and guests are marked as not attending by default.
+- Each guest, along with their details, is neatly contained within a div element identified by `data-test-id="guest"`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Edit Existing Guests
 
-### `npm test`
+- Allow users to edit the first and last names of existing guests for flexibility.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Deleting Guests
 
-### `npm run build`
+- Remove guests with a button labeled "Remove."
+- Buttons are equipped with an `aria-label` attribute for accessibility (e.g., "Remove John Doe").
+- Conveniently remove all guests marked as attending.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Attending Status
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Toggle a guest's attending status by clicking on a checkbox.
+- The checkbox includes an `aria-label` for clear identification (e.g., "John Doe attending status").
+- On the first click, guests are marked as attending (checkbox checked).
+- On the second click, the attending status is updated to not attending (checkbox unchecked).
 
-### `npm run eject`
+### API Integration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Integrates with an API for efficient storage and retrieval of guest data.
+- Changes are automatically saved to the API.
+- A loading message is displayed during API fetch on page load, ensuring a smooth user experience.
+- Form fields are disabled while loading to prevent interference.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Views
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- The default view displays a comprehensive list of all guests.
+- Two tables were created since the testing porgram did not like the <table>. This will be fixed!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Filters
 
-## Learn More
+- Filter guests to show only those not attending or attending.
+- Reset filters with a single click to display the complete guest list.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you have suggestions or find ways to improve, don't hesitate to open an issue or submit a pull request. Happy coding!
