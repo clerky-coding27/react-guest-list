@@ -1,4 +1,4 @@
-# Guest List App
+# Guest List React App
 
 ## Overview
 
